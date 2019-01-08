@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh "echo 'Prep stage'"
                 //mvn help:evaluate -Dexpression=project.version    -q -DforceStdout
-                mvn package -Dmaven.test.skip
+                sh 'mvn package -Dmaven.test.skip'
             }
         }
     }
