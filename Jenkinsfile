@@ -31,6 +31,8 @@ pipeline {
 
 // If this is the qa job that creates a release, run the commands to create a new branch
         stage('Create Release Branch') {
+            steps {
+            }
         }
 
 // Get the Maven GAV info
@@ -105,18 +107,21 @@ pipeline {
             parallel {
                 stage ('call-rundeck-deploy-job.sh') {
                     steps {
+                        sh "echo 'upload rundeck script'"
                         //sh "mvn deploy:deploy-file -Durl=${repoUrl}/${artifactRepo} -DgeneratePom=true -DrepositoryId=nexus-efx -Dfile=_scm-tools/install-scripts/call-rundeck-deploy-job.sh -DgroupId=${pomGroupId}.install-scripts -DartifactId=call-rundeck-deploy-job.sh -Dversion=${pomVersion}"
                     }
                 }
 
                 stage ('install.sh') {
                     steps {
+                        sh "echo 'upload install script'"
                         //sh "mvn deploy:deploy-file -Durl=${repoUrl}/${artifactRepo} -DgeneratePom=true -DrepositoryId=nexus-efx -Dfile=_scm-tools/install-scripts/install-2.1.sh -DgroupId=${pomGroupId}.install-scripts -DartifactId=install-2.1.sh -Dversion=${pomVersion}"
                     }
                 }
 
                 stage ('config.xml') {
                     steps {
+                        sh "echo 'upload config.xml'"
                         //sh "mvn deploy:deploy-file -Durl=${repoUrl}/${artifactRepo} -DgeneratePom=true -DrepositoryId=nexus-efx -Dfile=deployments/config.xml  -DgroupId=${pomGroupId}.install-scripts -DartifactId=config.xml -Dversion=${pomVersion}"
                     }
                 }
@@ -126,6 +131,7 @@ pipeline {
 // Install app to selected environments        
         stage ('Deploy') {
             steps {
+                sh "echo 'deploy stage'"
             }
         }
 
