@@ -32,6 +32,7 @@ pipeline {
 // If this is the qa job that creates a release, run the commands to create a new branch
         stage('Create Release Branch') {
             steps {
+                sh "echo 'Release Branch'"
             }
         }
 
