@@ -1,34 +1,14 @@
-#!/usr/bin/env groovy
-def pomVersion = 'Unknown'
-def pomArtifactId = 'Unknown'
-def pomGroupId = 'Unknown'
-def repoUrl = 'https://nexus.equifax.com/repository'
-def artifactRepo = 'usis-ic-maven2-snapshots'
-
 pipeline {
-    agent any
-    
-    tools {
-        maven 'mvn-3.6.0'
+    agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v $HOME/.m2:/root/.m2'
+        }
     }
-    
-    environment {
-        // Use repo local to workspace. Not implemented
-        //mvn_opts="-Dmaven.repo.local=.repository" 
-        
-        // Set url, credentials to access build tools repo
-        BUILD_TOOLS_REPO_URL = 'ssh://git@bitbucket.equifax.com:7999/usis-ic/ic-saas-build-deploy-tools.git'
-        BUILD_TOOLS_CRED_ID  = 'db57d32b-2a0d-431d-8431-ccea782faaa0'
-    }
-
-    stages {    
-
-// Do some prep work for the build
-        stage('Prep') {            
+    stages {
+        stage('Build') {
             steps {
-                sh "echo 'Prep stage'"
-                //mvn help:evaluate -Dexpression=project.version    -q -DforceStdout
-                sh 'mvn package -Dmaven.test.skip'
+                sh 'mvn -B'
             }
         }
     }
