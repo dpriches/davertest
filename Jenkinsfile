@@ -27,7 +27,7 @@ pipeline {
         stage('Prep') {            
             steps {
                 sh "echo 'Prep stage'"
-                mvn help:evaluate -Dexpression=project.version    -q -DforceStdout
+                sh "mvn help:evaluate -Dexpression=project.version    -q -DforceStdout"
             }
         }
 
