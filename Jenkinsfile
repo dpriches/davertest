@@ -41,9 +41,11 @@ pipeline {
         stage ('Get Maven GAV info') {
             steps {                                
                 script {
-                    pomVersion    = sh (script: "cat ${WORKSPACE}/pom.xml | xpath '/project/version/text()'",    returnStdout: true).trim()                     
-                    pomArtifactId = sh (script: "cat ${WORKSPACE}/pom.xml | xpath '/project/artifactId/text()'", returnStdout: true).trim()                     
-                    pomGroupId    = sh (script: "cat ${WORKSPACE}/pom.xml | xpath '/project/groupId/text()'",    returnStdout: true).trim()                     
+                    pomVersion    = sh (script: "mvn help:evaluate -Dexpression=project.version    -q -DforceStdout")                     
+                    pomArtifactId = sh (script: "mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout")                     
+                    pomGroupId    = sh (script: "mvn help:evaluate -Dexpression=project.groupId    -q -DforceStdout")                     
+                    //pomArtifactId = sh (script: "cat ${WORKSPACE}/pom.xml | xpath '/project/artifactId/text()'", returnStdout: true).trim()                     
+                    //pomGroupId    = sh (script: "cat ${WORKSPACE}/pom.xml | xpath '/project/groupId/text()'",    returnStdout: true).trim()                     
                 }
             }
         }
