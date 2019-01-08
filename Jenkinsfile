@@ -9,7 +9,7 @@ pipeline {
     agent any
     
     tools {
-        mvn 'mvn-3.6.0'
+        maven 'mvn-3.6.0'
     }
     
     environment {
