@@ -26,6 +26,7 @@ pipeline {
 // Do some prep work for the build
         stage('Prep') {            
             steps {
+                sh "echo 'Prep stage'"
             }
         }
 
